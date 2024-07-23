@@ -1,0 +1,215 @@
+.chat-container{
+    padding: 10px;
+    display: flex;
+    height:100%;
+    width:100%;
+    gap: 5px;
+}
+
+.sidebar {
+    width: 250px;
+    border-right: 0.5px solid lightgray;
+    padding-right: 5px;
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chat {
+    flex-grow: 1;
+    display:flex;
+    flex-direction: column;
+}
+
+.chat-details {
+    height: 15%;
+    border-bottom: 1px solid black;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-details-chat {
+    display:flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.call-logo {
+    cursor:pointer;
+}
+
+video {
+    background: black;
+    border: 1px solid white;
+}
+
+#remote-vid {
+    height: 300px;
+}
+
+.vid-container {
+    margin-top: 20px;
+    display:flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+#local-vid {
+    height: 100px;
+    background: gray;
+}
+
+#controls {
+    display:flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+#mute:hover {
+    border-bottom: 1px solid white;
+    cursor:pointer;
+}
+
+#toggle-cam:hover {
+    border-bottom: 1px solid white;
+    cursor: pointer;
+}
+
+.msg-box {
+    overflow:auto;
+    height:70%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+}
+
+.call-interface {
+    flex-grow: 1;
+    background: darkgray;
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.msg-box div{
+    max-width: 70%;
+}
+
+.msg-own {
+    align-self: flex-end;
+}
+
+.chat-input {
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 0 10px;
+}
+
+.chat-input button {
+    height: 30px;
+    border: 1px solid gray;
+    cursor: pointer;
+    width:10%;
+}
+
+.chat-input input {
+    width:90%;
+    height:30px;
+    font-size: 16px;
+    outline:none;
+}
+
+.user-menu{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height:50px;
+}
+.user-info{
+    display:flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.seen {
+    background: #f5f5f5;
+}
+
+.user-info img {
+    height: 40px;
+    width: 40px;
+}
+
+.toggle-menu img {
+    cursor: pointer;
+    height:30px;
+    width: 30px;
+}
+
+.toggle-menu svg {
+    cursor: pointer;
+}
+
+.add-menu {
+    display:flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.add-menu button {
+    cursor: pointer;
+    height: 30px;
+}
+
+.user-search {
+    height: 30px;
+    font-size: 16px;
+}
+
+.search input {
+    width: 100%;
+    height:30px;
+    font-size: 16px;
+}
+
+.user-chats {
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.logout {
+    height: 40px;
+    align-self:center;
+    padding: 5px;
+    border: 1px solid lightgray;
+    cursor:pointer;
+}
+
+.selected {
+    text-decoration: underline;
+}
+
+.user-chat-item {
+    display:flex;
+    align-items:center;
+    gap: 5px;
+}
+.user-chat-item:hover {
+    background: #f9f9f9;
+    cursor:pointer;
+}
+
+.user-chat-item span {
+    overflow: hidden;
+}
+
+.border-green{
+    border: 1px solid green;
+}

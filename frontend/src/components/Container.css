@@ -1,0 +1,61 @@
+.container {
+    flex-grow: 1;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    overflow:auto;
+}
+
+.box {
+    height: 60%;
+    width: 60%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.link-button-content{
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    border: 0.5px solid gray;
+    border-radius: 5px;
+}
+
+.link-button-content:hover{
+    border: 1px solid black;
+}
+
+.input-item {
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+    align-items: center;
+}
+
+.button-container{
+    padding: 5px;
+    border: 0.5px solid lightgray;
+    cursor: pointer;
+}
+
+.button-container:hover {
+    color: gray;
+    border: 1px solid black;
+}
+
+.register-link a{
+    text-decoration: none;
+    color: black;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+.pass {
+    width: 240px;
+}

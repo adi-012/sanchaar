@@ -1,0 +1,25 @@
+.input {
+    height: 30px;
+    padding: 2px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+}
+
+.eye-show {
+    height: 30px;
+    cursor: pointer;
+}
+
+.inputContainer {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid darkslategray;
+    padding: 2px;
+    width: 240px;
+    justify-content: space-between;
+}
+
+.border-red {
+    border: 1px solid red;
+}
