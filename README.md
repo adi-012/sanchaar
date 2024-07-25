@@ -6,7 +6,7 @@ Sanchaar is a messaging and video calling web application built using the MERN s
 
 - Real-time messaging
 - Video calls
-- User authentication (Session-based with Passport.js)
+- User authentication (Session-based with Passport.js and Google OAuth2)
 
 ## Prerequisites
 
@@ -20,12 +20,13 @@ Sanchaar is a messaging and video calling web application built using the MERN s
    git clone https://github.com/yourusername/sanchaar.git
    cd sanchaar
 
-2. **Setup MongoDB**
-Set up a MongoDB database either locally or in the cloud (e.g., MongoDB Atlas). Obtain the connection URL.
-Create a .env file in the backend directory and add your MongoDB URL.
+2. **Setup MongoDB and env variables**
+Set up a MongoDB database either locally or in the cloud (e.g., MongoDB Atlas). Obtain the connection URL.   
+Create a .env file in the backend directory and add your MongoDB URL.   
+Also add env variables for your Google Client ID and Client Secret for Google OAuth.
 
 
-3. **Install node modules**
+4. **Install node modules**
   ```sh
   cd backend
   npm install
