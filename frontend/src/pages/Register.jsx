@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 function Register() {
 
+  const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
@@ -25,8 +26,10 @@ function Register() {
     try {
       const response = await axios.post("http://localhost:3000/auth/register", {
         username,
-        password
+        password,
+        email
       })
+
       if (response.data.msg === "created") {
         navigate("/login")
       }
@@ -43,6 +46,17 @@ function Register() {
     <div className='page'>
       <Container>
         <h2>Register</h2>
+        <div className='input-item'>
+          <label htmlFor='email'>Email</label>
+          <div className='inputContainer'>
+            <input type='email' className={`input pass`} id="email" value={email} placeholder="Email" required 
+            onChange={
+              (e) => {
+                setEmail(e.target.value)
+                }
+            } />
+          </div>
+        </div>
         <div className='input-item'>
           <label htmlFor='username'>Username</label>
           <div className='inputContainer'>
@@ -99,6 +113,11 @@ function Register() {
           <Link to="/login">
             Have an account? Login
           </Link>
+        </div>
+        <div className='register-link'>
+          <a href="http://localhost:3000/auth/google/login">
+            Login with Google
+          </a>
         </div>
       </Container>
     </div>

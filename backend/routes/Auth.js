@@ -26,6 +26,12 @@ router.post("/login", (req, res, next) => {
     })(req, res, next)
 })
 
+router.get("/google/login", passport.authenticate('google', {scope: ['profile', 'email']}))
+
+router.get("/google/callback", passport.authenticate('google', {session: true}) ,(req, res)=> {
+    res.redirect("http://localhost:5173/auth/google/callback")
+})
+
 router.post("/", (req, res) => {
     if (req.isAuthenticated()) {
         return res.json({user : req.user})
@@ -34,7 +40,7 @@ router.post("/", (req, res) => {
 })
 
 router.post("/register", async (req, res) => {
-    const {username, password} = req.body;
+    const {username, password, email} = req.body;
 
     try {
         let user = await User.findOne({username});
@@ -44,7 +50,8 @@ router.post("/register", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10)
         const newUser = new User({
             username,
-            password: hashedPassword
+            password: hashedPassword,
+            email
         })
         await newUser.save()
 

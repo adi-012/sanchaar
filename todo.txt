@@ -1,5 +1,1 @@
-finish video call frontend and webRTC connection
-
-add OAuth2 with google
-
 clean up UI

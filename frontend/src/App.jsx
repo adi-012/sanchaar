@@ -9,6 +9,7 @@ import Register from "./pages/Register"
 import Chats from "./pages/Chats"
 import UserSettings from "./pages/UserSettings"
 import AuthContext from "./context/AuthContext";
+import GoogleAuthCallback from "./pages/GoogleAuthCallback"
 
 function App() {
 
@@ -33,7 +34,7 @@ function App() {
   },[authStatus])
 
   return (
-    <AuthContext.Provider value={{username, authStatus, setAuthStatus}}>
+    <AuthContext.Provider value={{username, setUsername, authStatus, setAuthStatus}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}/>
@@ -41,6 +42,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/chats" element={<Chats />} />
           <Route path="/settings" element={<UserSettings />} />
+          <Route path="/auth/google/callback" element={<GoogleAuthCallback />} />
           </Routes>
       </BrowserRouter>
     </AuthContext.Provider>
