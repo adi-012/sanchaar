@@ -8,6 +8,12 @@ import ConfigurePassport from "./config/passport.js"
 import AuthRouter from "./routes/Auth.js"
 import apiRouter from "./routes/Api.js"
 import handleMessage from './controllers/socketMessages.js';
+import dotenv from "dotenv"
+
+dotenv.config()
+
+const port = process.env.PORT || 3000
+const mongo_url = process.env.MONGODB_URL
 
 const app = express();
 
@@ -26,7 +32,7 @@ ConfigurePassport(passport)
 app.use("/auth", AuthRouter)
 app.use("/api", apiRouter)
 
-mongoose.connect("mongodb://localhost:2717/chatapp")
+mongoose.connect(mongo_url)
 .then(() => {
     console.log("connected to db")
 })
@@ -36,8 +42,8 @@ mongoose.connect("mongodb://localhost:2717/chatapp")
     process.exit(1);
 })
 
-const server = app.listen(3000, () => {
-    console.log("server is listening on port 3000")
+const server = app.listen(port, () => {
+    console.log(`server is listening on port ${port}`)
 })
 
 const wsAuth = (req, cb) => {
