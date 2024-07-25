@@ -3,7 +3,7 @@ import Container from "../components/Container"
 import SideBar from "../components/SideBar"
 import Chat from "../components/Chat"
 import "./Chats.css"
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useMemo } from 'react'
 import axios from 'axios'
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from 'react-router-dom'
@@ -34,6 +34,13 @@ function Chats() {
   const [localStream, setLocalStream] = useState(null)
   const [incomingCallData, setIncomingCallData] = useState(null)
   const [callList, setCallList] = useState([])
+
+  const chatUser = useMemo(() => {
+    if (selectedChat){
+      return userChats.find(c => c.chatId === selectedChat).recvName
+    }
+    return null
+  }, [selectedChat])
 
   useEffect(() => {
      const socket = new WebSocket("ws://localhost:3000")
@@ -109,6 +116,8 @@ function Chats() {
     setInCall(false)
 
     setCallList(prev => prev.filter(e => e.sender !== chatUser))
+
+    console.log("got here")
     // should go in Chat.jsx, need to pass peerConn and localStream
   }
 

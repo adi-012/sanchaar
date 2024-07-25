@@ -6,6 +6,9 @@ function Chat({ws, callList, setCallList ,localStream, setLocalStream, onlineUse
 
   const [message, setMessage] = useState("")
 
+  const [useAudio, setUseAudio] = useState(true)
+  const [useVideo, setUseVideo] = useState(true)
+
   const msgBoxRef = useRef(null)
 
   const selectedChatMessages = useMemo(() => {
@@ -172,6 +175,23 @@ function Chat({ws, callList, setCallList ,localStream, setLocalStream, onlineUse
     ws.send(JSON.stringify(message));
   }
 
+
+  function toggleAudio() {
+    if (localStream) {
+      const audioTrack = localStream.getAudioTracks()[0];
+      audioTrack.enabled = !audioTrack.enabled;
+      setUseAudio(prev => !prev)
+    }
+  }
+
+  function toggleVideo() {
+    if (localStream) {
+      const videoTrack = localStream.getVideoTracks()[0];
+      videoTrack.enabled = !videoTrack.enabled;
+      setUseVideo(prev => !prev)
+  }
+  }
+
   return (
     <div className='chat'>
         <div className='chat-details'>
@@ -180,7 +200,7 @@ function Chat({ws, callList, setCallList ,localStream, setLocalStream, onlineUse
             <span>{chatUser}</span>
             {callList.some(call => call.sender === chatUser) && <button onClick={answerCall}>Answer Call</button>}
           </div>
-            <img src='https://img.icons8.com/?size=30&id=fnQivuIylSo3&format=png&color=000000' className='call-logo' onClick={!inCall ? call : cutCall}/>
+            <img src={inCall ? 'https://img.icons8.com/?size=30&id=6483&format=png&color=000000' : 'https://img.icons8.com/?size=30&id=fnQivuIylSo3&format=png&color=000000'} className='call-logo' onClick={!inCall ? call : cutCall}/>
         </div>
         
         { !inCall ?
@@ -200,8 +220,8 @@ function Chat({ws, callList, setCallList ,localStream, setLocalStream, onlineUse
             <video ref={localVidRef} id="local-vid" autoPlay playsInline></video>
           </div>
           <div id="controls">
-              <div id="mute">Mute</div>
-              <div id="toggle-cam">Toggle Camera</div>
+              <div id="mute" onClick={toggleAudio}>{useAudio ? 'Mute' : 'Unmute'}</div>
+              <div id="toggle-cam" onClick={toggleVideo}>{useVideo ? 'Hide Video' : 'Show Video'}</div>
             </div>
         </div>
         }
