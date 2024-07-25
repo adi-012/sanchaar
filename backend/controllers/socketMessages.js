@@ -1,4 +1,4 @@
-import { userSockets } from "..";
+import { userSockets } from "../index.js";
 
 const handleMessage = (username, data) => {
     switch(data.type) {
@@ -6,27 +6,27 @@ const handleMessage = (username, data) => {
             sendToUser(data.target, {
                 type: 'offer',
                 offer: data.offer,
-                sender: senderId
+                sender: username
             });
             break;
         case 'answer':
             sendToUser(data.target, {
                 type: 'answer',
                 answer: data.answer,
-                sender: senderId
+                sender: username
             });
             break;
         case 'candidate':
             sendToUser(data.target, {
                 type: 'candidate',
                 candidate: data.candidate,
-                sender: senderId
+                sender: username
             });
             break;
         case 'cutCall':
             sendToUser(data.target, {
                 type: 'cutCall',
-                sender: senderId
+                sender: username
             });
             break;
         default:

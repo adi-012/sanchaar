@@ -8,6 +8,12 @@ import axios from 'axios'
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from 'react-router-dom'
 
+let peerConnection
+
+const setPeerConnection = value => {
+  peerConnection = value;
+}
+
 function Chats() {
 
   const {username, authStatus, setAuthStatus} = useContext(AuthContext)
@@ -25,6 +31,10 @@ function Chats() {
 
   const [ws, setWs] = useState(null)
 
+  const [localStream, setLocalStream] = useState(null)
+  const [incomingCallData, setIncomingCallData] = useState(null)
+  const [callList, setCallList] = useState([])
+
   useEffect(() => {
      const socket = new WebSocket("ws://localhost:3000")
      setWs(socket)
@@ -38,7 +48,7 @@ function Chats() {
      }
   }, [])
 
-  const handleReceiveMessage = (e) => {
+  const handleReceiveMessage = async (e) => {
     const data = JSON.parse(e.data)
     if ( data.type === "chat") {
       setUserChats(prev => [...prev, data.chat])
@@ -66,6 +76,40 @@ function Chats() {
     if (data.type === "onlineUsers") {
       setOnlineUsers(data.userList)
     }
+    if (data.type === 'offer') {
+        handleIncomingCall(data);
+        console.log("got offer")
+    }
+    if (data.type === 'answer') {
+        await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer))
+    }
+    if (data.type === 'candidate') {
+        await peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate))
+    }
+    if (data.type === 'cutCall') {
+        handleCutCall()
+    }
+  }
+
+  const handleIncomingCall = (data) => {
+      setCallList(prev => [...prev, data])
+  }
+
+  const handleCutCall = () => {
+    if (peerConnection) {
+      peerConnection.close()
+      setPeerConnection(null)
+    }
+
+    if (localStream) {
+      localStream.getTracks().forEach(track => track.stop());
+      setLocalStream(null)
+    }
+
+    setInCall(false)
+
+    setCallList(prev => prev.filter(e => e.sender !== chatUser))
+    // should go in Chat.jsx, need to pass peerConn and localStream
   }
 
   useEffect(() => {
@@ -92,8 +136,8 @@ function Chats() {
     <div className='page'>
       <Container>
         <div className='chat-container'>
-          <SideBar inCall={inCall} onlineUsers={onlineUsers} username={username} userChats={userChats} setUserChats={setUserChats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
-          <Chat inCall={inCall} setInCall={setInCall} onlineUsers={onlineUsers} userChats={userChats} selectedChat={selectedChat} chats={chats} setChats={setChats} />
+          <SideBar callList={callList} inCall={inCall} onlineUsers={onlineUsers} username={username} userChats={userChats} setUserChats={setUserChats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
+          <Chat ws={ws} callList={callList} setCallList={setCallList} localStream={localStream} setLocalStream={setLocalStream} inCall={inCall} setInCall={setInCall} onlineUsers={onlineUsers} userChats={userChats} selectedChat={selectedChat} chats={chats} setChats={setChats} />
         </div>
       </Container>
     </div>
@@ -101,3 +145,4 @@ function Chats() {
 }
 
 export default Chats
+export {peerConnection, setPeerConnection}

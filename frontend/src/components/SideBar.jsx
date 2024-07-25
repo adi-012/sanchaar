@@ -1,9 +1,11 @@
-import { useState, useMemo, useContext } from "react";
-import {useNavigate} from "react-router-dom"
+import React from 'react'
+import "../pages/Chats.css"
+import { useState, useContext, useMemo } from 'react'
+import axios from 'axios'
 import AuthContext from "../context/AuthContext"
-import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
-function SideBar({inCall, onlineUsers, username, userChats, setUserChats, selectedChat, setSelectedChat}) {
+function SideBar({callList, inCall, onlineUsers, username, userChats, setUserChats, selectedChat, setSelectedChat}) {
 
   const [showAddMenu, setShowAddMenu] = useState(false);
 
